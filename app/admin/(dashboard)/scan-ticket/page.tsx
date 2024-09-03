@@ -1,10 +1,8 @@
-import DefaultButton from "@/components/shared/Button";
-
 const ScanTicket = () => {
   return (
     <div>
       ScanTicket
-      <DefaultButton label="Scan" />
+      {/* <DefaultButton label="Scan" /> */}
     </div>
   );
 };
