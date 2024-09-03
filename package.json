@@ -9,11 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.4.0",
+    "@material-tailwind/react": "^2.1.10",
     "@prisma/client": "^5.19.0",
-    "bcrypt": "^5.1.1",
     "eslint-plugin-tailwindcss": "^3.17.4",
     "next": "14.2.7",
-    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18"
   },
