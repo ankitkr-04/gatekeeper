@@ -1,4 +1,3 @@
-import { ThemeProvider } from "@/components/MaterialUI";
 import "@/styles/globals.css";
 import "@/styles/otherStyles.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -20,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ClerkProvider appearance={{}}>
-          <ThemeProvider>{children}</ThemeProvider>
-        </ClerkProvider>
+        <ClerkProvider appearance={{}}>{children}</ClerkProvider>
       </body>
     </html>
   );
