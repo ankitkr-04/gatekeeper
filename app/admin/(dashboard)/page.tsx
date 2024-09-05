@@ -1,7 +1,26 @@
 "use client";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+
+
+
 const Dashboard = () => {
-  return <div>Dashboard</div>;
+ 
+  return (
+    <div>
+
+  
+
+    
+
+    </div>
+  )
 };
 
 export default Dashboard;
