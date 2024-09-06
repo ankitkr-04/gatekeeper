@@ -11,17 +11,9 @@
   "dependencies": {
     "@botpress/webchat": "^2.1.10",
     "@botpress/webchat-generator": "^0.2.9",
-    "@clerk/nextjs": "^5.4.0",
-    "@prisma/client": "^5.19.0",
-<<<<<<< Updated upstream
-    "@radix-ui/react-accordion": "^1.2.0",
-    "@radix-ui/react-avatar": "^1.1.0",
+    "@clerk/nextjs": "^5.4.1",
+    "@prisma/client": "^5.19.1",
     "@radix-ui/react-menubar": "^1.1.1",
-    "@radix-ui/react-scroll-area": "^1.1.0",
-=======
-    "@radix-ui/react-avatar": "^1.1.0",
->>>>>>> Stashed changes
-    "@radix-ui/react-slot": "^1.1.0",
     "axios": "^1.7.7",
     "bwip-js": "^4.5.1",
     "class-variance-authority": "^0.7.0",
