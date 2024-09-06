@@ -9,6 +9,12 @@ declare interface SidebarLink {
   label: string;
 }
 
+declare interface UrlQueryParams {
+  params: string;
+  key: string;
+  value: string | null;
+}
+
 // interfaces.ts
 declare interface BookingRequest {
   conversationId: string;

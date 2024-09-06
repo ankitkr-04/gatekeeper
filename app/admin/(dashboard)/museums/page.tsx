@@ -1,9 +1,22 @@
-import React from 'react'
+import Header from "@/components/Header";
+import MuseumTable from "@/components/MuseumTable";
 
 const page = () => {
+    
   return (
-    <div>page</div>
-  )
-}
+    <div>
+      <Header
+        route="museum/create"
+        heading="All Museums"
+        label="Add a Museum"
+      />
+      <br />
 
-export default page
+      <MuseumTable/>
+
+
+    </div>
+  );
+};
+
+export default page;
