@@ -9,8 +9,7 @@ export const getBookingDetails = async (orderId: string) => {
       },
     });
 
-    
-    return booking;
+    return booking ? booking : null;
   } catch (error: any) {
     return error;
   }
