@@ -1,12 +1,21 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-export default clerkMiddleware();
+// Create a route matcher for the `/admin/*` route
+const isProtectedRoute = createRouteMatcher(["/admin(.*)"]);
+
+export default clerkMiddleware((auth, req) => {
+  // Check if the route is a protected route (e.g., /admin)
+  if (!auth().userId && isProtectedRoute(req)) {
+    // Redirect unauthenticated users to the sign-in page
+    return auth().redirectToSignIn();
+  }
+});
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
-    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
+    // Protect the /admin/* route
+    "/admin/(.*)",
+    // Optionally protect API routes or other dynamic routes
     "/(api|trpc)(.*)",
   ],
 };
