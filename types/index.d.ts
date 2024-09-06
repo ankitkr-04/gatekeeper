@@ -4,6 +4,7 @@ declare interface Credentials {
 }
 
 declare interface SidebarLink {
+  imgURL: string;
   route: string;
   label: string;
 }
