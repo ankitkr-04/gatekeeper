@@ -50,7 +50,6 @@ declare interface BookingResponse {
   orderId?: string;
 }
 
-
 // interfaces.ts
 declare interface RazorpayError {
   code: string;
@@ -77,3 +76,22 @@ declare interface RazorpayOrder {
   created_at: number;
 }
 
+declare interface RazorpayPaymentEntity {
+  event: string;
+  payload: {
+    payment: {
+      entity: {
+        id: string;
+        order_id: string;
+      };
+    };
+  };
+}
+
+declare interface TicketProps {
+  id: string;
+  barcodeNo: string;
+  bookingId: string;
+  status: string;
+  visitDate: Date;
+}

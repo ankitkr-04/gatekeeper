@@ -8,6 +8,8 @@ export const getBookingDetails = async (orderId: string) => {
         orderId: orderId,
       },
     });
+
+    
     return booking;
   } catch (error: any) {
     return error;

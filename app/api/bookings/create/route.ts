@@ -52,17 +52,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       orderDetails: {
-        key: process.env.RAZORPAY_KEY_ID, // Public Razorpay key
-        amount: totalPrice, // Amount in rupees
+        // key: process.env.RAZORPAY_KEY_ID, 
+        amount: totalPrice, 
         currency: "INR",
         order_id: razorpayOrder.id,
-        name: museum.name,
+        // name: museum.name,
         description: `Booking for ${museum.name}`,
-        prefill: {
-          name: body.user_name,
-          email: body.user_email,
-        },
-        callback_url: process.env.RAZORPAY_CALLBACK_URL, // e.g. https://your-domain.com/api/payment/callback
+        // prefill: {
+        //   name: body.user_name,
+        //   email: body.user_email,
+        // },
+        payment_url: `${process.env.BASE_URL}/payment?orderId=${razorpayOrder.id}`,
+        // callback_url: process.env.RAZORPAY_CALLBACK_URL, // e.g. https://your-domain.com/api/payment/callback
       },
     });
   } catch (error) {
