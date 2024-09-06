@@ -21,6 +21,8 @@ model Museum {
   seniorCost    Float      // Cost for seniors
   accessoryCost Float      // Cost for accessories (if any)
   bookings      Booking[]
+
+  Holiday Holiday[]
 }
 
 model Booking {
@@ -67,4 +69,14 @@ enum TicketStatus {
   BOOKED
   USED
   CANCELLED
+}
+
+model Holiday {
+  id        String   @id @default(uuid())
+  museum    Museum?   @relation(fields: [museumId], references: [id])
+  museumId  String?
+  description String
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

@@ -1,9 +1,10 @@
 // src/pages/api/valid-date.ts
 
-import { publicHolidays } from "@/constants";
+import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 const MAX_ADVANCE_DAYS = 30; // Maximum days for advance booking
+const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest) {
   try {
@@ -49,9 +50,13 @@ export async function POST(req: NextRequest) {
 
     // Check if the date is a public holiday
     const formattedDate = dateToCheck.toISOString().split("T")[0]; // Format as YYYY-MM-DD
-    const holiday = publicHolidays.find(
-      (holiday) => holiday.date === formattedDate
-    );
+    const holiday = await prisma.holiday.findFirst({
+      where: {
+        date: {
+          equals: new Date(formattedDate),
+        },
+      },
+    });
 
     if (holiday) {
       return NextResponse.json({

@@ -1,9 +1,13 @@
-import React from 'react'
+import Header from "@/components/Header";
+import HolidaysTable from "@/components/HolidaysTable";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div>
+      <Header heading="All Holidays" route="/holidays" label="Add Holiday" />
+      <HolidaysTable/>
+    </div>
+  );
+};
 
-export default page
+export default page;

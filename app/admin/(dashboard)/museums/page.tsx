@@ -6,7 +6,7 @@ const page = () => {
   return (
     <div>
       <Header
-        route="museum/create"
+        route="museum"
         heading="All Museums"
         label="Add a Museum"
       />

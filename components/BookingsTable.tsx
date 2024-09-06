@@ -76,7 +76,7 @@ const BookingsTable = () => {
                 {new Date(booking.visitDate).toLocaleDateString()}
               </TableCell>
               <TableCell className="text-dark300_light700">
-                {booking.totalPrice.toFixed(2)}
+                ₹{booking.totalPrice.toFixed(2)}
               </TableCell>
             </TableRow>
           ))}
