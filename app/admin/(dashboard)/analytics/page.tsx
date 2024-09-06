@@ -1,9 +1,13 @@
-import React from 'react'
+import BookingsTable from "@/components/BookingsTable";
+import Header from "@/components/Header";
 
 const page = () => {
   return (
-    <div>Analytics</div>
-  )
-}
+    <div>
+      <Header heading="All Bookings" />
+      <BookingsTable />
+    </div>
+  );
+};
 
-export default page
+export default page;
