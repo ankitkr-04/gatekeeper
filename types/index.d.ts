@@ -49,3 +49,31 @@ declare interface BookingResponse {
   error?: string;
   orderId?: string;
 }
+
+
+// interfaces.ts
+declare interface RazorpayError {
+  code: string;
+  description: string;
+  source: string;
+  step: string;
+  reason: string;
+  metadata: Record<string, any>;
+}
+
+declare interface RazorpayOrder {
+  id: string;
+  entity: string;
+  amount: number;
+  amount_paid: number;
+  amount_due: number;
+  currency: string;
+  receipt: string | null;
+  offer_id: string | null;
+  offers: string[];
+  status: string;
+  attempts: number;
+  notes: any[];
+  created_at: number;
+}
+
