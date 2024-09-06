@@ -1,12 +1,16 @@
 import { getBookingDetails } from "@/actions/booking.actions";
 import { generateBarCodeNumber } from "@/actions/ticket.actions";
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/prisma"; // Adjust the import according to your project structure
+import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
     const body: RazorpayPaymentEntity = await req.json();
     const { event, payload } = body;
+
+    // console.log("Webhook event:", event);
+    // console.log("Webhook payload:", payload);
 
     if (!["payment.captured", "payment.failed"].includes(event)) {
       return NextResponse.json(
@@ -37,7 +41,7 @@ export async function POST(req: NextRequest) {
 
       if (!existingTicket) {
         const barcodeNo = await generateBarCodeNumber(booking.visitDate);
-        await prisma.ticket.create({
+        const ticket = await prisma.ticket.create({
           data: {
             barcodeNo,
             bookingId: booking.id,
@@ -46,12 +50,21 @@ export async function POST(req: NextRequest) {
           },
         });
 
-        // console.log(ticket);
+        await axios.post(process.env.BOTPRESS_WEBHOOK as string, {
+          conversationId: booking.conversationId,
+          status: "booked",
+          link: `${process.env.BASE_URL}/e-ticket?ticketId=${ticket.id}`,
+        });
       }
     } else if (event === "payment.failed") {
       await prisma.booking.update({
         where: { id: booking.id },
         data: { status: "FAILED" },
+      });
+
+      await axios.post(process.env.BOTPRESS_URL as string, {
+        conversationId: booking.conversationId,
+        status: "cancelled",
       });
     }
 

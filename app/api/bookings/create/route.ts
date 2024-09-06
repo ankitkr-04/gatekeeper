@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
   try {
     const body: BookingRequest = await req.json();
     const museum = body.results.data[0];
+    // console.log(body);
 
     // Calculate total price
     const totalPrice =
@@ -21,6 +22,7 @@ export async function POST(req: NextRequest) {
     // Create the booking in the database
     const newBooking = await prisma.booking.create({
       data: {
+        conversationId: body.conversationId,
         museumId: museum.id,
         numOfAdults: body.adult_ticket,
         numOfChildren: 0,
@@ -52,8 +54,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       success: true,
       orderDetails: {
-        // key: process.env.RAZORPAY_KEY_ID, 
-        amount: totalPrice, 
+        // key: process.env.RAZORPAY_KEY_ID,
+        amount: totalPrice,
         currency: "INR",
         order_id: razorpayOrder.id,
         // name: museum.name,

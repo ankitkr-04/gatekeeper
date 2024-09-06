@@ -29,7 +29,7 @@ model Booking {
   museumId       String
   numOfAdults    Int
   visitDate      DateTime
-  
+  conversationId String?        @unique
   numOfChildren  Int
   numOfSeniors   Int
   accessories    Int           // Number of accessories

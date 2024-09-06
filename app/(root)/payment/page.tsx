@@ -79,6 +79,7 @@ const Payment = () => {
       order_id: order.id,
       handler: function (response: any) {
         console.log("Payment Success:", response);
+        
         // Handle payment success here
       },
       prefill: {
@@ -101,7 +102,7 @@ const Payment = () => {
         <p>Loading...</p>
       ) : (
         <>
-          {error && <ErrorCard desc={error} />}
+          
           {/* Optionally render other content or messages */}
         </>
       )}

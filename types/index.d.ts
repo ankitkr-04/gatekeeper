@@ -10,6 +10,7 @@ declare interface SidebarLink {
 
 // interfaces.ts
 declare interface BookingRequest {
+  conversationId: string;
   ai_answer: string;
   user_email: string;
   booking_type: string;
