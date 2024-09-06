@@ -1,21 +1,22 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-// Create a route matcher for the `/admin/*` route
-const isProtectedRoute = createRouteMatcher(["/admin(.*)"]);
+const isPublicRoute = createRouteMatcher([
+  "/admin/sign-in(.*)",
+  "/admin/sign-up(.*)",
+  "/((?!admin).*)",
+]);
 
 export default clerkMiddleware((auth, req) => {
-  // Check if the route is a protected route (e.g., /admin)
-  if (!auth().userId && isProtectedRoute(req)) {
-    // Redirect unauthenticated users to the sign-in page
-    return auth().redirectToSignIn();
+  if (!isPublicRoute(req)) {
+    auth().protect();
   }
 });
 
 export const config = {
   matcher: [
-    // Protect the /admin/* route
-    "/admin/(.*)",
-    // Optionally protect API routes or other dynamic routes
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };
