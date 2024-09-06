@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -8,7 +7,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { sidebarLinks } from "@/constants";
-import { SignedOut } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -20,8 +18,8 @@ const NavContent = () => {
     <section className="flex h-full flex-col gap-6 pt-16">
       {sidebarLinks.map((item) => {
         const isActive =
-          (pathname.includes(item.route) && item.route.length > 1) ||
-          pathname === item.route;
+          pathname === item.route ||
+          (pathname.startsWith(`${item.route}/`) && item.route !== "/admin");
 
         return (
           <SheetClose asChild key={item.route}>
@@ -78,7 +76,6 @@ const MobileNav = () => {
             <NavContent />
           </SheetClose>
         </div>
-        
       </SheetContent>
     </Sheet>
   );

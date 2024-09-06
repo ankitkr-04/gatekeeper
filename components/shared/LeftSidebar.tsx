@@ -1,11 +1,10 @@
 "use client";
 
 import { sidebarLinks } from "@/constants";
-import {  useAuth } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 
 const LeftSidebar = () => {
   const { userId } = useAuth();
@@ -16,8 +15,8 @@ const LeftSidebar = () => {
       <div className="flex flex-1 flex-col gap-6">
         {sidebarLinks.map((item) => {
           const isActive =
-            (pathname.includes(item.route) && item.route.length > 1) ||
-            pathname === item.route;
+            pathname === item.route ||
+            (pathname.startsWith(`${item.route}/`) && item.route !== "/admin");
 
           if (item.route === "/profile") {
             if (userId) {
@@ -55,8 +54,6 @@ const LeftSidebar = () => {
           );
         })}
       </div>
-
-     
     </section>
   );
 };
