@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import {
   Menubar,
   MenubarContent,
@@ -17,6 +18,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 
 
+=======
+import Sidebar from "@/components/Sidebar";
+import { ClerkProvider } from "@clerk/nextjs";
+>>>>>>> Stashed changes
 
 export default function DashboardLayout({
   children,
@@ -24,6 +29,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
+<<<<<<< Updated upstream
     <main className="relative overflow-y-hidden bg-gradient-to-r from-neutral-50 to-sky-50">
       <div className="flex items-start justify-around p-5">  
 
@@ -79,6 +85,20 @@ export default function DashboardLayout({
        
       
     </main>
+=======
+    <body>
+      <ClerkProvider>
+        <main className="relative">
+          <div className="flex">
+            <Sidebar />
+            <section className="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-36 max-md:pb-14 sm:px-14">
+              <div className="mx-auto w-full max-w-5xl">{children}</div>
+            </section>
+          </div>
+        </main>
+      </ClerkProvider>
+    </body>
+>>>>>>> Stashed changes
   );
 }
 

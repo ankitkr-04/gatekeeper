@@ -1,7 +1,5 @@
-// schema.prisma
-
 datasource db {
-  provider = "postgresql" // or "mysql", "sqlite" based on your setup
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -10,51 +8,39 @@ generator client {
 }
 
 model Museum {
-  id          String       @id @default(uuid())
-  name        String
-  location    Location?
-  description String?
-  ticketTypes TicketType[]
-  bookings    Booking[]
-}
-
-model Location {
-  id       String  @id @default(uuid())
-  address  String
-  city     String
-  state    String
-  country  String
-  zipCode  String
-  museum   Museum  @relation(fields: [museumId], references: [id])
-  museumId String  @unique
-}
-
-model TicketType {
-  id         String    @id @default(uuid())
-  type       String    // e.g., individual, group, etc.
-  childCost  Float?    // Cost per child
-  adultCost  Float?    // Cost per adult
-  seniorCost Float?    // Cost per senior
-  museum     Museum    @relation(fields: [museumId], references: [id])
-  museumId   String
-  bookings   Booking[]
+  id            String    @id @default(uuid())
+  name          String
+  address       String
+  city          String
+  state         String
+  country       String
+  zipCode       String
+  description   String?
+  adultCost     Float      // Cost for adults
+  childCost     Float      // Cost for children
+  seniorCost    Float      // Cost for seniors
+  accessoryCost Float      // Cost for accessories (if any)
+  bookings      Booking[]
 }
 
 model Booking {
   id             String        @id @default(uuid())
   museum         Museum        @relation(fields: [museumId], references: [id])
   museumId       String
-  ticketType     TicketType    @relation(fields: [ticketTypeId], references: [id])
-  ticketTypeId   String
   numOfAdults    Int
+  visitDate      DateTime
+  
   numOfChildren  Int
   numOfSeniors   Int
+  accessories    Int           // Number of accessories
   totalPrice     Float
   status         PaymentStatus
   orderId        String        @unique
   paymentChannel String
   transactionId  String?
   ticket         Ticket?
+  bookedBy       String        // Person's name
+  email          String        // Person's email
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 }
@@ -66,8 +52,6 @@ model Ticket {
   barcodeNo String       @unique
   status    TicketStatus
   visitDate DateTime
-  bookedBy  String
-  email     String
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
 }

@@ -1,9 +1,10 @@
-// // lib/botpress.ts
-// import { Client } from "@botpress/client";
+// lib/botpressClient.ts
+import { Client } from "@botpress/chat";
 
-// const botpress = new Client({
-//   botId: process.env.BOTPRESS_BOT_ID as string,
-//   token: process.env.BOTPRESS_API_KEY as string,
-// });
+const myWebhookId = "dae518d0-b501-4b2b-92d1-895b460d25cb";
 
-// export default botpress;
+const client = new Client({
+  apiUrl: `https://chat.botpress.cloud/${myWebhookId}`,
+});
+
+export default client;
