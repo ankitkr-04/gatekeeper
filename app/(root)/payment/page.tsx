@@ -2,85 +2,56 @@
 
 import { getBookingDetails } from "@/actions/booking.actions";
 import { getOrderDetails } from "@/actions/payment.actions";
-import ErrorCard from "@/components/Error";
-import { useSearchParams } from "next/navigation";
+import Loading from "@/components/Loading";
+import { useRouter, useSearchParams } from "next/navigation";
+import Script from "next/script";
 import { useEffect, useState } from "react";
 
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
 const Payment = () => {
-  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
-  const [booking, setBooking] = useState<any | null>(null); // Adjust type as necessary
+  const [booking, setBooking] = useState<any | null>(null);
   const searchParams = useSearchParams();
   const orderId = searchParams.get("orderId");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!orderId) {
-      setError("No order ID found. Please try again.");
-      setLoading(false);
-      return;
-    }
+    if (!orderId) router.replace("/");
 
     const fetchOrderAndBookingDetails = async () => {
       try {
-        // Fetch order details
-        const orderDetails = await getOrderDetails(orderId);
-
-        // Fetch booking details (if required)
-        const bookingDetails = await getBookingDetails(orderId);
+        const orderDetails = await getOrderDetails(orderId as string);
+        const bookingDetails = await getBookingDetails(orderId as string);
         setBooking(bookingDetails);
-
-        // Load Razorpay script and initiate payment
-        await loadRazorpayScript();
+        setLoading(false);
         initiatePayment(orderDetails);
       } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("An unknown error occurred.");
-        }
+        throw new Error("Something went wrong");
       } finally {
-        setLoading(false);
       }
     };
 
     fetchOrderAndBookingDetails();
   }, [orderId]);
 
-  const loadRazorpayScript = (): Promise<void> => {
-    return new Promise((resolve, reject) => {
-      if (document.getElementById("razorpay-script")) {
-        resolve();
-        return;
-      }
-
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.id = "razorpay-script";
-      script.onload = () => resolve();
-      script.onerror = () =>
-        reject(new Error("Failed to load Razorpay script."));
-      document.body.appendChild(script);
-    });
-  };
-
   const initiatePayment = (order: any) => {
-    if (!window.Razorpay) {
-      console.error("Razorpay SDK not loaded.");
-      setError("Failed to load payment processor.");
-      return;
-    }
-
     const options = {
-      key: process.env.RAZORPAY_KEY_ID, // Replace with your Razorpay key
-      amount: order.amount * 100, // Amount in paise
+      key: process.env.RAZORPAY_KEY_ID,
+      amount: order.amount * 100,
       currency: order.currency,
       name: "MuseoBot",
       description: "Order Payment",
       order_id: order.id,
       handler: function (response: any) {
-        console.log("Payment Success:", response);
-        
         // Handle payment success here
+        // console.log("Payment Success:", response);
+        window.close();
       },
       prefill: {
         name: booking?.bookedBy || "Customer Name",
@@ -92,20 +63,27 @@ const Payment = () => {
       },
     };
 
-    const paymentObject = new (window as any).Razorpay(options);
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.on("payment.failed", function (res: any) {
+      setError(res.error.description);
+    });
     paymentObject.open();
   };
 
   return (
     <div>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <>
-          
-          {/* Optionally render other content or messages */}
-        </>
+      <>
+        <Script
+          id="razorpay-checkout-js"
+          src="https://checkout.razorpay.com/v1/checkout.js"
+        />
+      </>
+      {loading && (
+        <div className="flex h-screen items-center justify-center">
+          <Loading />
+        </div>
       )}
+      {error && <h2> {error} </h2>}
     </div>
   );
 };

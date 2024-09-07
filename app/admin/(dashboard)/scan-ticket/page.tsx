@@ -1,16 +1,14 @@
-import BarcodeScanner from '@/components/BarcodeScanner'
-import Header from '@/components/Header'
-import React from 'react'
+import BarcodeScanner from "@/components/BarcodeScanner";
+import Header from "@/components/Header";
 
-const page = () => {
+const Page = () => {
   return (
     <div>
-      <Header heading='Scan Tickets' />
+      <Header heading="Scan Tickets" />
 
-      <BarcodeScanner/>
-
+      <BarcodeScanner />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;
