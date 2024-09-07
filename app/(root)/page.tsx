@@ -5,8 +5,8 @@ import Script from "next/script";
 
 export default function Home() {
   return (
-    <div className="max-w-3xl items-center mx-auto justify-center sm:justify-between flex">
-      <div className="grid sm:grid-cols-2 gap-8 ">
+    <div className="mx-auto  flex max-w-3xl items-center justify-center sm:justify-between">
+      <div className="grid gap-8 sm:grid-cols-2 ">
         {cardLinks.map((card) => (
           <ActionCard
             key={card.value}

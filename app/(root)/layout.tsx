@@ -4,7 +4,7 @@ const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <body>
       <Navbar />
-      <section className="flex min-h-screen flex-1 flex-col px-6 pb-6 pt-28 max-md:pb-14 sm:px-14">
+      <section className="background-light900_dark300 flex min-h-screen flex-1 flex-col px-6 pb-6 pt-28 max-md:pb-14 sm:px-14">
         <div className="mx-auto w-full ">{children}</div>
       </section>
     </body>
