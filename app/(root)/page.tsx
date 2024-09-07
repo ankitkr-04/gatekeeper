@@ -1,10 +1,22 @@
 "use client";
+import ActionCard from "@/components/ActionCard";
+import { cardLinks } from "@/constants";
 import Script from "next/script";
 
 export default function Home() {
   return (
-    <div>
-      CHATBOT
+    <div className="max-w-3xl items-center mx-auto justify-center sm:justify-between flex">
+      <div className="grid sm:grid-cols-2 gap-8 ">
+        {cardLinks.map((card) => (
+          <ActionCard
+            key={card.value}
+            value={card.value}
+            icon={card.icon}
+            label={card.label}
+            description={card.description}
+          />
+        ))}
+      </div>
       <Script
         src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"
         strategy="afterInteractive"

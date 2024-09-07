@@ -103,3 +103,10 @@ declare interface TicketProps {
   status: string;
   visitDate: Date;
 }
+
+declare interface ActionCardProps {
+  value: string;
+  label: string;
+  icon?: string;
+  description?: string;
+}
