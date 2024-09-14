@@ -13,7 +13,7 @@ const Header = ({ route, label, heading }: HeaderProps) => {
       <h1 className="h1-bold text-dark100_light900">{heading}</h1>
       <Link href={`/admin/${route}`}>
         {route && (
-          <Button className="primary-gradient font-semibold min-h-[46px] px-4 py-3 !text-light-900">
+          <Button className="primary-gradient min-h-[46px] px-4 py-3 font-semibold !text-light-900">
             {label}
           </Button>
         )}

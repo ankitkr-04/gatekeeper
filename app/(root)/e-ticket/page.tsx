@@ -11,11 +11,9 @@ const ETicket = () => {
   const ticketId = useSearchParams().get("ticketId");
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
 
-  if (!ticketId) {
-    return <div>Invalid ticket ID</div>;
-  }
-
   useEffect(() => {
+    if (!ticketId) return;
+
     const fetchTicketDetails = async () => {
       try {
         const ticketDetails = await getTicket(ticketId);
@@ -52,7 +50,9 @@ const ETicket = () => {
         // Create a new PDF Document
         const pdfDoc = await PDFDocument.create();
         const page = pdfDoc.addPage([500, 400]);
-        const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+        const timesRomanFont = await pdfDoc.embedFont(
+          StandardFonts.TimesRoman
+        );
 
         // Add ticket details to PDF
         page.drawText("E-Ticket", {
@@ -96,22 +96,26 @@ const ETicket = () => {
   }, [ticketId]);
 
   useEffect(() => {
-    if (pdfUrl) {
-      // Create a temporary link element
-      const link = document.createElement("a");
-      link.href = pdfUrl;
-      link.download = "e-ticket.pdf";
-      link.style.display = "none";
-      document.body.appendChild(link);
+    if (!pdfUrl) return;
 
-      // Programmatically trigger the click event
-      link.click();
+    // Create a temporary link element
+    const link = document.createElement("a");
+    link.href = pdfUrl;
+    link.download = "e-ticket.pdf";
+    link.style.display = "none";
+    document.body.appendChild(link);
 
-      // Clean up
-      document.body.removeChild(link);
-      URL.revokeObjectURL(pdfUrl); // Clean up the object URL
-    }
+    // Programmatically trigger the click event
+    link.click();
+
+    // Clean up
+    document.body.removeChild(link);
+    URL.revokeObjectURL(pdfUrl); // Clean up the object URL
   }, [pdfUrl]);
+
+  if (!ticketId) {
+    return <div>Invalid ticket ID</div>;
+  }
 
   return (
     <div>

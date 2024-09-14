@@ -15,7 +15,7 @@ import {
   FormatException,
   NotFoundException,
 } from "@zxing/library";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader } from "./ui/card";
 
@@ -26,7 +26,7 @@ export default function QRCodeScanner() {
     []
   );
 
-  const codeReader = new BrowserQRCodeReader();
+  const codeReader = useMemo(() => new BrowserQRCodeReader(), []);
 
   console.log("ZXing code reader initialized");
 
@@ -101,7 +101,7 @@ export default function QRCodeScanner() {
           <Label htmlFor="sourceSelect">Change video source:</Label>
         </CardHeader>
         <CardContent>
-          <Select>
+          <Select onValueChange={(value) => setSelectedDeviceId(value)}>
             <SelectTrigger>
               <SelectValue />
             </SelectTrigger>

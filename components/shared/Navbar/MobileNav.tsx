@@ -64,7 +64,7 @@ const MobileNav = () => {
 
       <SheetContent
         side="left"
-        className="background-light900_dark200 border-none overflow-y-auto no-scrollbar"
+        className="background-light900_dark200 no-scrollbar overflow-y-auto border-none"
       >
         <Link href="/admin" className="flex items-center gap-1">
           <p className="h2-bold text-dark100_light900 font-spaceGrotesk">

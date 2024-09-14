@@ -33,7 +33,7 @@ const MuseumTable = () => {
   }, [pageNumber]);
 
   return (
-    <div className="text-light900_dark100 p-4 rounded-lg">
+    <div className="text-light900_dark100 rounded-lg p-4">
       <Table className="w-full">
         <TableHeader className="">
           <TableRow className="h3-bold">
@@ -44,10 +44,7 @@ const MuseumTable = () => {
         </TableHeader>
         <TableBody>
           {museums.map((museum) => (
-            <TableRow
-              key={museum.id}
-              className=""
-            >
+            <TableRow key={museum.id} className="">
               <TableCell className="text-dark300_light700">
                 {museum.name}
               </TableCell>

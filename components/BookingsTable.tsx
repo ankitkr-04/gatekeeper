@@ -49,7 +49,7 @@ const BookingsTable = () => {
   }, [pageNumber]);
 
   return (
-    <div className="text-light900_dark100 p-4 rounded-lg">
+    <div className="text-light900_dark100 rounded-lg p-4">
       <Table className="w-full">
         <TableHeader className="">
           <TableRow className="h3-bold">
