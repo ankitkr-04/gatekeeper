@@ -1,4 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MUSEOBOT
+
+*MUSEOBOT* is a Next.js-based museum ticketing system that integrates with Clerk for authentication, Razorpay for payment processing, and Botpress for chatbot interaction.
+
+## Table of Contents
+- Features
+- Environment Variables
+- Setup
+- Usage
+- Tech Stack
+- Getting Started
+- Learn More
+- Deploy on Vercel
+
+## Features
+- **User Authentication**: Powered by Clerk (Sign-up, Sign-in)
+- **Payment Integration**: Razorpay for secure payments
+- **Chatbot Integration**: Botpress for conversational UI
+- **Ticket Scanning**: Barcode scanner to validate tickets in real-time
+- **Admin Panel**: Manage bookings, validate tickets, and monitor museum data
+
+## Environment Variables
+Ensure the following environment variables are configured in your `.env` file:
+
+```env
+DATABASE_URL=*****
+NODE_ENV=*****
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=*****
+CLERK_SECRET_KEY=*****
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=*****
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=*****
+RAZORPAY_KEY_ID=*****
+RAZORPAY_KEY_SECRET=*****
+RAZORPAY_CALLBACK_URL=*****
+BOTPRESS_CLIENT_ID=*****
+BASE_URL=*****
+BOTPRESS_WEBHOOK=*****
+
+```
+# Setup
+1. Clone the repository
+2. Install dependencies with `npm install`
+3. Create a `.env` file in the root directory and add the required environment variables
+4. Run the development server with `npm run dev`
+
+Usage
+To start using Gatekeeper, navigate to your local development environment and ensure all environment variables are correctly set.
+Tech Stack
+- **Next.js 14**: Framework
+- **Clerk**: User authentication
+- **Razorpay**: Payment gateway
+- **Botpress**: Conversational AI
+- **PostgreSQL**: Database
 
 ## Getting Started
 
