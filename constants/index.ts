@@ -29,6 +29,18 @@ export const sidebarLinks: SidebarLink[] = [
     route: "/admin/profile",
     label: "Profile",
   },
+  {
+    imgURL: "/assets/icons/suitcase.svg",
+    route: "/admin/agents",
+    label: "Agents",
+  },
+  {
+    imgURL: "/assets/icons/message.svg",
+    route: "/admin/marketing",
+    label: "Marketing",
+  },
+
+  
 ];
 
 export const publicHolidays = [
